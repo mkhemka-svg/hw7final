@@ -104,7 +104,6 @@ class Game:
                 elif event.key == pygame.K_s:
                     self._sell_selected_tower()
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.store.click_was_in_store(event.pos):
                     self.store.handle_event(event)
                 else:
@@ -373,12 +372,18 @@ class Game:
                 msg = "Press SPACE to start next wave"
                 surf = self.big_font.render(msg, True, COLOR_TEXT)
                 self.screen.blit(surf, (130, 20))
+                
         elif self.state == "game_over":
             surf = self.big_font.render("GAME OVER", True, (255, 100, 100))
             self.screen.blit(surf, (240, 20))
+            hint = self.font.render("Press R to restart", True, COLOR_TEXT)
+            self.screen.blit(hint, (300, 60))
+
         elif self.state == "victory":
             surf = self.big_font.render("VICTORY!", True, (120, 255, 120))
             self.screen.blit(surf, (260, 20))
+            hint = self.font.render("Press R to restart", True, COLOR_TEXT)
+            self.screen.blit(hint, (300, 60))
 
     # ------------------------------------------------------------------
     # Main loop
