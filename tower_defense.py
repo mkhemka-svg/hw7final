@@ -89,13 +89,14 @@ class Game:
 
     def handle_events(self):
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 self.running = False
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
-                elif event.key == pygame.K_r:
+                elif event.key == pygame.K_r and self.state in ["game_over", "victory"]:
                     self.reset_game()
                 elif event.key == pygame.K_SPACE and self.state == "intermission":
                     self._start_next_wave()
@@ -104,13 +105,17 @@ class Game:
                 elif event.key == pygame.K_s:
                     self._sell_selected_tower()
 
-                if self.store.click_was_in_store(event.pos):
-                    self.store.handle_event(event)
-                else:
-                    self._handle_map_click(event.pos)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # LEFT CLICK
+                if event.button == 1:
+                    if self.store.click_was_in_store(event.pos):
+                        self.store.handle_event(event)
+                    else:
+                        self._handle_map_click(event.pos)
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                self.selected_map_tower = None
+                # RIGHT CLICK
+                elif event.button == 3:
+                    self.selected_map_tower = None
 
     def _handle_map_click(self, mouse_pos):
         col = mouse_pos[0] // CELL_SIZE
@@ -372,7 +377,7 @@ class Game:
                 msg = "Press SPACE to start next wave"
                 surf = self.big_font.render(msg, True, COLOR_TEXT)
                 self.screen.blit(surf, (130, 20))
-                
+
         elif self.state == "game_over":
             surf = self.big_font.render("GAME OVER", True, (255, 100, 100))
             self.screen.blit(surf, (240, 20))
