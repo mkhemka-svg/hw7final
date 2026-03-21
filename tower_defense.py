@@ -62,6 +62,27 @@ class Game:
         self.store = Store()
         self.running = True
 
+    def reset_game(self):
+        self.enemies = []
+        self.towers = []
+        self.projectiles = []
+        self.tower_cells = {}
+
+        self.gold = STARTING_GOLD
+        self.score = 0
+        self.lives = STARTING_LIVES
+
+        self.spawn_timer = 0
+        self.wave_number = 0
+        self.wave_queue = []
+        self.state = "intermission"
+        self.intermission_timer = TIME_BETWEEN_WAVES
+
+        self.selected_map_tower = None
+        self.store.selected_tower_class = None
+
+    
+
     # ------------------------------------------------------------------
     # Events
     # ------------------------------------------------------------------
@@ -74,6 +95,8 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
+                elif event.key == pygame.K_r:
+                    self.reset_game()
                 elif event.key == pygame.K_SPACE and self.state == "intermission":
                     self._start_next_wave()
                 elif event.key == pygame.K_u:
@@ -375,7 +398,6 @@ class Game:
 def main():
     game = Game()
     game.run()
-
 
 if __name__ == "__main__":
     main()
