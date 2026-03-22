@@ -61,7 +61,10 @@ class Projectile:
         dy = self.target.y - self.y
         dist = math.hypot(dx, dy)
 
-        if dist <= self.speed + self.size:
+        enemy_hit_radius = self.target.size / 2
+        projectile_hit_radius = self.size / 2
+
+        if dist <= enemy_hit_radius + projectile_hit_radius:
             self.target.take_damage(self.damage)
             if self.on_hit:
                 self.on_hit(self.target, self.enemies)
@@ -75,6 +78,17 @@ class Projectile:
         self.x += self.vx
         self.y += self.vy
 
+        dx = self.target.x - self.x
+        dy = self.target.y - self.y
+        dist = math.hypot(dx, dy)
+
+        if dist <= enemy_hit_radius + projectile_hit_radius:
+            self.target.take_damage(self.damage)
+            if self.on_hit:
+                self.on_hit(self.target, self.enemies)
+            self.active = False
+            return
+
         if not (0 <= self.x <= SCREEN_WIDTH and 0 <= self.y <= SCREEN_HEIGHT):
             self.active = False
 
@@ -82,11 +96,11 @@ class Projectile:
         if not self.active:
             return
 
-        half = self.size // 2
-        pygame.draw.rect(
+        pygame.draw.circle(
             surface,
             self.color,
-            pygame.Rect(self.x - half, self.y - half, self.size, self.size),
+            (int(self.x), int(self.y)),
+            self.size // 2,
         )
 
 
