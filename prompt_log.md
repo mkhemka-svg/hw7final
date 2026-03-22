@@ -1,4 +1,4 @@
-# This entire file contains the work done on the project by the person who did Phase 1. I have made no edits it since then. My prompt log is in the README.md
+# This entire file contains the work done on the project by the person who did Phase 1. I have made no edits. My prompt log is in the README.md
 
 # AI PROMPTS:
 I talked with Claude for this project so far.
