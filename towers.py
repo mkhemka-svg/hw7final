@@ -41,6 +41,7 @@ class Projectile:
         self.target = target_enemy
         self.enemies = enemies if enemies is not None else []
         self.on_hit = on_hit
+        self.speed = speed
 
         dx = target_enemy.x - x
         dy = target_enemy.y - y
@@ -52,18 +53,27 @@ class Projectile:
         if not self.active:
             return
 
+        if not self.target.alive:
+            self.active = False
+            return
+
+        dx = self.target.x - self.x
+        dy = self.target.y - self.y
+        dist = math.hypot(dx, dy)
+
+        if dist <= self.speed + self.size:
+            self.target.take_damage(self.damage)
+            if self.on_hit:
+                self.on_hit(self.target, self.enemies)
+            self.active = False
+            return
+
+        if dist != 0:
+            self.vx = (dx / dist) * self.speed
+            self.vy = (dy / dist) * self.speed
+
         self.x += self.vx
         self.y += self.vy
-
-        if self.target.alive:
-            dist = math.hypot(self.target.x - self.x, self.target.y - self.y)
-            if dist < abs(self.vx) + self.size:
-                self.target.take_damage(self.damage)
-                if self.on_hit:
-                    self.on_hit(self.target, self.enemies)
-                self.active = False
-        else:
-            self.active = False
 
         if not (0 <= self.x <= SCREEN_WIDTH and 0 <= self.y <= SCREEN_HEIGHT):
             self.active = False
