@@ -230,7 +230,7 @@ class Game:
             else:
                 self.state = "intermission"
                 self.intermission_timer = TIME_BETWEEN_WAVES
-                self.gold += 25 + self.wave_number * 10
+                self.gold += 50 + self.wave_number * 15
 
     def _check_game_over(self):
         if self.lives <= 0:

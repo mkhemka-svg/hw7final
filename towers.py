@@ -163,15 +163,15 @@ class BaseTower:
         return self.level < 3
 
     def get_upgrade_cost(self):
-        return 40 * self.level
+        return 25 * self.level
 
     def upgrade(self):
         upgrade_cost = self.get_upgrade_cost()
         self.total_spent += upgrade_cost
         self.level += 1
-        self.damage = int(self.damage * 1.35)
-        self.range += 20
-        self.fire_rate = max(8, int(self.fire_rate * 0.85))
+        self.damage = int(self.damage * 1.5)
+        self.range += 25
+        self.fire_rate = max(8, int(self.fire_rate * 0.8))
 
     def get_sell_value(self):
         return int(self.total_spent * SELL_REFUND_RATIO)
@@ -199,8 +199,8 @@ class BasicTower(BaseTower):
         "cost": 50,
         "color": (60, 120, 200),
         "range": 120,
-        "damage": 20,
-        "fire_rate": 60,
+        "damage": 26,
+        "fire_rate": 45,
         "proj_speed": 5,
         "proj_size": 8,
         "proj_color": (255, 230, 50),
@@ -243,8 +243,8 @@ class RapidTower(BaseTower):
         "description": "Short range, fast fire rate.",
         "cost": 80,
         "color": (60, 200, 120),
-        "range": 80,
-        "damage": 8,
+        "range": 100,
+        "damage": 11,
         "fire_rate": 15,
         "proj_speed": 7,
         "proj_size": 5,
@@ -262,7 +262,7 @@ class SlowTower(BaseTower):
         "cost": 90,
         "color": (80, 180, 255),
         "range": 110,
-        "damage": 6,
+        "damage": 10,
         "fire_rate": 45,
         "proj_speed": 5,
         "proj_size": 7,

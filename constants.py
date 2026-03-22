@@ -48,7 +48,7 @@ COLOR_GOLD = (255, 210, 50)
 ENEMY_SPEED = 2
 ENEMY_HEALTH = 100
 ENEMY_SIZE = 20
-ENEMY_SPAWN_RATE = 30   # frames between spawns inside a wave
+ENEMY_SPAWN_RATE = 45   # frames between spawns inside a wave
 
 # ---------------------------------------------------------------------------
 # Projectile
@@ -98,22 +98,24 @@ PATH_CELLS = build_path_cells()
 # ---------------------------------------------------------------------------
 # Economy / progression
 # ---------------------------------------------------------------------------
-STARTING_GOLD = 250
-STARTING_LIVES = 20
+STARTING_GOLD = 400
+STARTING_LIVES = 30
 SELL_REFUND_RATIO = 0.7
-TIME_BETWEEN_WAVES = 180
+TIME_BETWEEN_WAVES = 240
 
 ENEMY_REWARDS = {
-    "basic": 10,
-    "fast": 12,
-    "armored": 18,
-    "boss": 100,
+    "basic": 15,
+    "fast": 18,
+    "armored": 25,
+    "boss": 150,
 }
 
 WAVES = [
+    [("basic", 4)],
     [("basic", 5)],
-    [("basic", 7), ("fast", 3)],
-    [("basic", 8), ("armored", 4)],
-    [("fast", 6), ("armored", 4), ("basic", 4)],
-    [("boss", 1), ("fast", 6)],
+    [("basic", 6), ("fast", 1)],
+    [("basic", 7), ("fast", 2)],
+    [("basic", 6), ("armored", 2)],
+    [("fast", 4), ("armored", 2)],
+    [("boss", 1), ("basic", 4)],
 ]
