@@ -148,7 +148,7 @@ was a key challenge.
 ## Prompt Log (AI Usage)
 
 ### Tools Used
-- ChatGPT (GPT-5.3)
+- ChatGPT 
 
 ---
 
